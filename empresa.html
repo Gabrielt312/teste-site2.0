@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empresa - Multcabos</title>
+    <link rel="shortcut icon" type="image/png" href="img/mini-logo.jpg"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* --- ESTILOS GERAIS --- */
+        :root {
+            --cor-primaria: #a60000;
+            --cor-secundaria: #1f0101;
+            --cor-destaque: #d95151;
+            --cor-fundo: #FFFFFF;
+            --cor-fundo-alternativa: #f0f2f5;
+            --cor-texto: #333333;
+            --cor-texto-claro: #FFFFFF;
+            --sombra-padrao: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--cor-secundaria);
+            margin-bottom: 20px;
+        }
+
+        h3 {
+             color: var(--cor-primaria);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 60px auto;
+            color: #666;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .links {
+            text-decoration: underline;
+            padding-left: 10px;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        /* --- CABEÇALHO E NAVEGAÇÃO --- */
+        header {
+            border-bottom: 1px solid #e0e0e0;
+            background: var(--cor-fundo);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .logo {
+            max-height: 40px;
+        }
+
+        /* Menu Desktop */
+        .nav-list {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-item {
+            cursor: pointer;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--cor-texto);
+            padding: 10px 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--cor-primaria);
+            transition: width 0.3s ease;
+        }
+        .nav-item:hover .nav-link, .nav-item:focus .nav-link {
+            color: var(--cor-primaria);
+        }
+        .nav-item:hover .nav-link::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        .hamburger i {
+            font-size: 28px;
+            color: #333;
+        }
+
+        /* --- SEÇÃO HERO --- */
+        .hero {
+            background-image: linear-gradient(rgba(0, 50, 90, 0.7), rgba(0, 20, 40, 0.7)), url('img/sistemadecabeamentos.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: var(--cor-texto-claro);
+            padding: 120px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 45vh;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+        .cta-button {
+            background-color: var(--cor-destaque);
+            color: var(--cor-texto-claro);
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #b30303;
+            transform: translateY(-3px);
+        }
+
+
+        /* --- SEÇÃO APRESENTAÇÃO --- */
+        .apresentacao {
+            background-color: var(--cor-fundo);
+        }
+
+        .fachada-loja {
+            width: 300px;
+        }
+
+        /* --- SEÇÃO NOSSO PROCESSO --- */
+        .processo {
+            background-color: var(--cor-fundo-alternativa);
+        }
+        .processo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        .processo-card {
+            text-align: center;
+        }
+        .processo-card .icon {
+            font-size: 3rem;
+            color: var(--cor-primaria);
+            margin-bottom: 20px;
+        }
+
+        /* --- SEÇÃO SERVIÇOS --- */
+        .servicos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .servico-card {
+            background-color: var(--cor-fundo);
+            border-radius: 8px;
+            box-shadow: var(--sombra-padrao);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .servico-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        .servico-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .servico-content {
+            padding: 30px;
+        }
+
+        .who-button,.services-button {
+            background-color: var(--cor-destaque);
+            color: var(--cor-texto-claro);
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .who-button:hover,.services-button:hover {
+            background-color: #b30303;
+            transform: translateY(-3px);
+        }
+
+        .who-button-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+        }
+
+        /* --- SEÇÃO NOSSOS PROJETOS --- */
+        .projetos {
+            background-color: var(--cor-fundo-alternativa);
+        }
+        .projetos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .projeto-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .projeto-item:hover img {
+            transform: scale(1.05);
+            opacity: 0.8;
+        }
+
+
+        /* --- SEÇÃO CONTATO --- */
+        .contato-wrapper {
+            font-weight: 500;
+            display: flex;
+            gap: 60px;
+            background-color: var(--cor-fundo);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: var(--sombra-padrao);
+        }
+        .contato-info, .contato-form {
+            flex: 1;
+        }
+        .contato-info h3 {
+            margin-top:0; 
+        }
+        .contato-form .form-group {
+            margin-bottom: 20px;
+        }
+        .contato-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .contato-form input, .contato-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+        .contato-form button {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--cor-primaria);
+            color: var(--cor-texto-claro);
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .contato-form button:hover {
+            background-color: var(--cor-secundaria);
+        }
+
+/* --- RODAPÉ --- */
+footer {
+    background-color: #1c1c1c; color: #a0a0a0;
+    padding: 60px 20px;
+}
+footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+.footer-logo { 
+    max-height: 50px; margin-bottom: 15px; 
+}
+.footer-address { 
+    text-align: center; line-height: 1.6; 
+}
+footer .social-links a { 
+    color: var(--cor-texto-claro); 
+    margin: 0 15px; 
+    font-size: 1.5rem; 
+    transition: color 0.3s ease, transform 0.3s ease; 
+}
+footer .social-links a:hover { 
+    color: var(--cor-destaque); 
+    transform: scale(1.1); 
+}
+footer .copyright { 
+    margin-top: 20px; 
+    font-size: 0.9rem; 
+    text-align: center; 
+}
+footer .copyright a { 
+    color: var(--cor-texto-claro); 
+    font-weight: 600;
+}
+footer .copyright a:hover { 
+    color: var(--cor-destaque); 
+    text-decoration: underline; 
+}
+/* --- WHATSAPP --- */
+.whatsapp-float-container { position: fixed; bottom: 40px; right: 40px; z-index: 1000; }
+.whatsapp-float {
+    position: relative; width: 60px; height: 60px; background-color: #25d366; color: #fff;
+    border-radius: 50%; text-align: center; box-shadow: 0 0 0 rgba(37, 211, 101, 0.7);
+    display: flex; align-items: center; justify-content: center; animation: pulse 2s infinite;
+}
+.whatsapp-float i { font-size: 32px; } /* MELHORIA: Usa o ícone do FontAwesome */
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+        /* --- MEDIA QUERIES PARA RESPONSIVIDADE --- */
+        @media (max-width: 992px) {
+             .contato-wrapper {
+                 flex-direction: column;
+             }
+        }
+
+        @media (max-width: 768px) {
+            .nav-list {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--cor-fundo);
+                flex-direction: column;
+                gap: 0;
+                border-top: 1px solid #e0e0e0;
+                padding: 10px 0;
+            }
+            .nav-list.active {
+                display: flex;
+            }
+            .nav-item {
+                width: 100%;
+                text-align: center;
+            }
+            .nav-link {
+                 padding: 15px;
+                 display: block;
+                 width: 100%;
+            }
+             .nav-link::after {
+                display:none;
+             }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            #maps {
+                width: 350px;
+                height:250px;
+            }
+        }
+
+        @media (max-width: 450px) {
+            #maps {
+                width: 260px;
+                height:250px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="container" role="navigation" aria-label="Menu principal">
+            <a href="#inicio"><img src="img/logo-multcabos.png" alt="Logo Multcabos" class="logo" /></a>
+            
+            <button class="hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="primary-navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul id="primary-navigation" class="nav-list" role="menubar">
+                <li class="nav-item" role="none"><a href="index.html" class="nav-link" role="menuitem">Inicio</a></li>
+                <li class="nav-item" role="none"><a href="#apresentacao" class="nav-link" role="menuitem">A Empresa</a></li>
+                <li class="nav-item" role="none"><a href="Servicos.html" class="nav-link" role="menuitem">Serviços</a></li>
+                <li class="nav-item" role="none"><a href="clientes.html" class="nav-link" role="menuitem">Clientes</a></li>
+                <li class="nav-item" role="none"><a href="loja.html" class="nav-link" role="menuitem">Nossa Loja</a></li>
+                <li class="nav-item" role="none"><a href="#contato" class="nav-link" role="menuitem">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <section id="inicio" class="hero">
+            <div class="container hero-content">
+                <h1>Conectando o Futuro das Redes e Telecomunicações</h1>
+                <p>Soluções inovadoras e confiáveis desde 1992.</p>
+                <a href="#contato" class="cta-button">Solicite um Orçamento</a>
+            </div>
+        </section>
+
+        <section id="apresentacao" class="apresentacao">
+            <div class="container">
+                <h2>Nossa História</h2>
+                <p class="section-subtitle">
+                   A Multcabos nasceu em 1992 com a missão de oferecer as melhores soluções em cabeamento estruturado e infraestrutura de redes. Ao longo de mais de 30 anos, nos consolidamos como referência no mercado, combinando experiência, tecnologia de ponta e uma equipe altamente qualificada para entregar projetos de excelência.
+                </p>
+                </div>
+        </section>
+
+        <section id="processo" class="processo">
+            <div class="container">
+                <h2>Nosso Processo</h2>
+                 <p class="section-subtitle">Garantimos a qualidade e eficiência em cada etapa do seu projeto.</p>
+                <div class="processo-grid">
+                    <div class="processo-card">
+                        <div class="icon"><i class="fas fa-comments"></i></div>
+                        <h3>1. Consulta Inicial</h3>
+                        <p>Entendemos suas necessidades e objetivos para propor a solução ideal.</p>
+                    </div>
+                    <div class="processo-card">
+                        <div class="icon"><i class="fas fa-pencil-ruler"></i></div>
+                        <h3>2. Planejamento</h3>
+                        <p>Desenvolvemos um projeto detalhado, otimizando recursos e prazos.</p>
+                    </div>
+                    <div class="processo-card">
+                        <div class="icon"><i class="fas fa-cogs"></i></div>
+                        <h3>3. Execução</h3>
+                        <p>Nossa equipe técnica implementa o projeto com precisão e profissionalismo.</p>
+                    </div>
+                    <div class="processo-card">
+                        <div class="icon"><i class="fas fa-check-circle"></i></div>
+                        <h3>4. Entrega e Suporte</h3>
+                        <p>Entregamos a solução final e oferecemos suporte contínuo para sua tranquilidade.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="servicos" class="servicos">
+            <div class="container">
+                <h2>Nossos Serviços</h2>
+                 <p class="section-subtitle">Oferecemos uma gama completa de serviços para garantir a conectividade e segurança da sua empresa.</p>
+                <div class="servicos-grid">
+                    <div class="servico-card">
+                        <img src="img/acesspoint.jpg" alt="Cabeamento Estruturado">
+                        <div class="servico-content">
+                            <h3>Cabeamento Estruturado</h3>
+                            <p>Projetamos e implementamos sistemas de cabeamento (Cat5e, Cat6, Cat6a) que suportam todas as suas necessidades de comunicação de dados, voz e vídeo.</p>
+                        </div>
+                    </div>
+                    <div class="servico-card">
+                        <img src="img/certificacao.jpg" alt="Fibra Óptica">
+                        <div class="servico-content">
+                            <h3>Fibra Óptica</h3>
+                            <p>Instalação, fusão e certificação de redes de fibra óptica para alta velocidade e confiabilidade em longas distâncias.</p>
+                        </div>
+                    </div>
+                    <div class="servico-card">
+                        <img src="img/sistemadecabeamentos.jpeg" alt="Redes Wireless">
+                        <div class="servico-content">
+                            <h3>Redes Wireless (Wi-Fi)</h3>
+                            <p>Soluções completas de redes sem fio para ambientes corporativos, garantindo cobertura total, segurança e alta performance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="who-button-wrapper">
+              <a href="quemsomos.html" class="who-button">Veja todos os serviços</a>
+            </div>
+        </section>
+
+        <section id="projetos" class="projetos">
+            <div class="container">
+                <h2>Nossos Projetos</h2>
+                <p class="section-subtitle">Confira alguns dos projetos que tivemos o orgulho de realizar, demonstrando nossa capacidade e compromisso com a qualidade.</p>
+                <div class="projetos-grid">
+                    <div class="projeto-item"><a href="#"><img src="img/imagem-teste.png" alt="Projeto 1"></a></div>
+                    <div class="projeto-item"><a href="#"><img src="img/imagem-teste1.jpg" alt="Projeto 2"></a></div>
+                    <div class="projeto-item"><a href="#"><img src="img/imagem-teste.png"></a></div>
+                    <div class="projeto-item"><a href="#"><img src="img/imagem-teste1.jpg" alt="Projeto 4"></a></div>
+                    <div class="projeto-item"><a href="#"><img src="img/imagem-teste.png" alt="Projeto 5"></a></div>
+                    <div class="projeto-item"><a href="#"><img src="img/imagem-teste1.jpg" alt="Projeto 6"></a></div>
+                </div>
+            </div>
+            <div class="who-button-wrapper">
+              <a href="quemsomos.html" class="services-button">Conheça nossos projetos</a>
+            </div>
+        </section>
+
+        <section id="contato" class="contato">
+            <div class="container">
+                 <h2>Entre em Contato</h2>
+                 <p class="section-subtitle">Estamos prontos para atender você. Envie sua mensagem ou venha nos visitar.</p>
+                 <div class="contato-wrapper">
+                     <div class="contato-info">
+                         <h3>Informações de Contato</h3>
+                         <p><i class="fas fa-map-marker-alt"></i><a class="links" href="https://maps.app.goo.gl/1QP1v33jZnUSeSei8">R. Pirapó, 267 - Vila Zanetti, Londrina - PR</p></a>
+                         <p><i class="fas fa-phone"></i><a class="links" href="tel:+554333057777">(43) 3305-7777</a></p>
+                         <p><i class="fas fa-envelope"></i><a class="links" href="mailto:multcabos@multcabos.com.br">multcabos@multcabos.com.br</a></p>
+                         <p><i class="fas fa-clock"></i> Seg - Sex: 8:00 - 18:00</p>
+                         <iframe id="maps" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3664.462218464529!2d-51.1620998!3d-23.2989827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94eb4379d8077c19%3A0x584bb29998825dab!2sMULTCABOS%20-%20Redes%20e%20Telecom!5e0!3m2!1spt-BR!2sbr!4v1750077176406!5m2!1spt-BR!2sbr" width="450" height="350" style="border-radius: 30px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                     </div>
+                     <div class="contato-form">
+                          <h3>Envie uma Mensagem</h3>
+                         <form action="https://api.staticforms.xyz/submit" method="POST">
+                             <div class="form-group">
+                                 <label for="nome">Nome</label>
+                                 <input type="text" id="nome" name="nome" required>
+                             </div>
+                              <div class="form-group">
+                                 <label for="email">Email</label>
+                                 <input type="email" id="email" name="email" required>
+                             </div>
+                              <div class="form-group">
+                                 <label for="mensagem">Mensagem</label>
+                                 <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
+                             </div>
+
+                             <button type="submit">Enviar</button>
+
+                             <input type="hidden" name="apiKey" value="sf_68n96nlinimjdai9inj0jj6d">
+                             <input type="hidden" name="redirectTo" value="https://gabrielt312.github.io/teste-site2.0/empresa.html">
+                         </form>
+                         <div id="mensagem-confirmacao" style="display:none; color: green; text-align: center; margin-top: 10px;">Mensagem enviada com sucesso!</div>
+                     </div>
+                 </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div class="whatsapp-float-container">
+        <a href="https://wa.me/554333057777" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Entre em contato pelo WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <footer id="contato">
+        <div class="container">
+            <div class="footer-info">
+                 <img src="img/logo-branca.png" alt="Logo Multcabos Branca" class="footer-logo"/> <p class="footer-address">
+                    Rua Pirapó, 267 - Vila Zanetti<br>
+                    Londrina, PR - 86025-320
+                 </p>
+            </div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/multcabos/" aria-label="Link para Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/multcabos_/" aria-label="Link para Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="copyright">
+                © 2025 Multcabos | Todos os direitos reservados.
+                <br>
+                <a href="mailto:multcabos@multcabos.com.br">multcabos@multcabos.com.br</a> | <a href="tel:+554333057777">(43) 3305-7777</a>
+            </p>
+        </div>
+    </footer>
+
+<script>
+    document.querySelector('.contato-form form').addEventListener('submit', function() {
+    // Exibir a mensagem de confirmação
+    document.getElementById('mensagem-confirmacao').style.display = 'block';
+
+    // Opcional: Ocultar a mensagem após 5 segundos
+    setTimeout(() => {
+        document.getElementById('mensagem-confirmacao').style.display = 'none';
+    }, 5000);
+});
+
+
+
+
+    // --- SCRIPT PARA MENU MOBILE ---
+    const hamburger = document.querySelector('.hamburger');
+    const navList = document.querySelector('.nav-list');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    hamburger.addEventListener('click', () => {
+        const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', !isExpanded);
+        navList.classList.toggle('active');
+    });
+
+    // Fecha o menu mobile ao clicar em um link
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (navList.classList.contains('active')) {
+                navList.classList.remove('active');
+                 hamburger.setAttribute('aria-expanded', 'false');
+            }
+        });
+    });
+
+    // --- SCRIPT PARA ROLAGEM SUAVE ---
+     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+
+    // --- SCRIPT PARA BOTÃO WHATSAPP ---
+    const whatsappButton = document.querySelector('.whatsapp-float');
+    if (whatsappButton) {
+        setTimeout(() => {
+            whatsappButton.classList.add('active');
+        }, 1000);
+
+        const customWhatsappAlertEl = document.getElementById('customWhatsappAlert');
+        const oldTooltipEl = whatsappButton.querySelector('.whatsapp-tooltip');
+        if (oldTooltipEl) {
+            oldTooltipEl.remove();
+        }
+
+        if (customWhatsappAlertEl) {
+            let autoHideTimeoutId;
+            const hideAlert = () => {
+                customWhatsappAlertEl.classList.remove('visible');
+                clearTimeout(autoHideTimeoutId);
+            };
+            setTimeout(() => {
+                customWhatsappAlertEl.classList.add('visible');
+                autoHideTimeoutId = setTimeout(hideAlert, 7500);
+                customWhatsappAlertEl.addEventListener('click', hideAlert, { once: true });
+            }, 1500);
+        }
+    }
+</script>
+</body>
+</html>

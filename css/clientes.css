@@ -1,0 +1,531 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #555;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+main {
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* --- CABEÇALHO E NAVEGAÇÃO --- */
+header {
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+}
+
+.logo {
+    max-height: 35px;
+}
+
+/* Menu Desktop */
+.nav-list {
+    display: flex;
+    gap: 48px;
+}
+
+.nav-item {
+    cursor: pointer;
+}
+
+.nav-link-texts {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    user-select: none;
+    min-width: 80px;
+}
+
+.nav-title {
+    font-weight: 600;
+    font-size: 1.0rem;
+    color: #1a1a1a;
+    line-height: 1.2;
+    transition: color 0.3s ease;
+}
+
+.nav-subtitle {
+    font-size: 0.75rem;
+    color: #888;
+    line-height: 1.2;
+    transition: transform 0.3s ease, color 0.3s ease;
+    transform-origin: left top;
+    margin-top: 4px;
+    transform: translateY(6px);
+}
+
+/* Efeito Hover */
+.nav-item:hover .nav-subtitle,
+.nav-item:focus-within .nav-subtitle {
+    transform: translateY(0);
+    color: #0078d4;
+}
+
+.nav-item:hover .nav-title,
+.nav-item:focus-within .nav-title {
+    color: #0078d4;
+}
+
+/* Botão hamburger (inicialmente escondido) */
+.hamburger {
+    display: none; /* Escondido em telas grandes */
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 8px;
+    z-index: 1001; /* Garante que fique sobre outros elementos */
+}
+
+.hamburger i { /* Estilo para o ícone do Font Awesome */
+    font-size: 28px;
+    color: #333;
+}
+
+
+/* --- SEÇÃO HERO COM SLIDER --- */
+.hero {
+    background-color: #191919;
+    padding: 20px 0; /* Adicione um pouco de padding vertical se desejar */
+    color: #ffffff;
+    display: flex; /* Para centralizar verticalmente o slider container (opcional) */
+    justify-content: center; /* Para centralizar horizontalmente o slider container (opcional) */
+}
+
+/* Novo container do Slider com altura máxima definida */
+.slider-container {
+    position: relative;
+    width: 80%;
+    max-width: 100%;
+    /* Defina a altura máxima desejada. Ajuste esse valor conforme necessário. */
+    max-height: 400px; /* Exemplo de altura máxima */
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    height: 100%; /* Garante que o slider ocupe a altura do container */
+}
+
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    height: 100%; /* Garante que cada slide ocupe a altura do slider */
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover; /* Mantém a proporção da imagem cobrindo o espaço */
+}
+
+    
+/* Botões de Navegação do Slider */
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px; /* Espaçamento das bordas */
+    box-sizing: border-box;
+    pointer-events: none; /* Permite clicar através da camada de navegação */
+}
+
+.slider-nav button {
+    pointer-events: all; /* Habilita o clique apenas nos botões */
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.slider-nav button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+
+    /* --- SEÇÃO SOBRE E VALORES --- */
+.about {
+    padding: 60px 0;
+    background-color: #ffffff;
+}
+
+.about-intro {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto 50px auto;
+}
+
+.about-intro h2 {
+    font-size: 2rem;
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.about-intro p {
+    font-size: 1.1rem;
+}
+
+.values-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+}
+
+.value-card {
+    flex: 1;
+    background-color: #f8f9fa;
+    padding: 30px;
+    border: 1px solid #e7e7e7;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.card-icon {
+    margin-bottom: 20px;
+}
+
+.card-icon i {
+    font-size: 2.5rem;
+    color: #0056b3;
+}
+
+.value-card h3 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+    /* --- SEÇÃO GALERIA DE CLIENTES --- */
+.clientes-galeria {
+ padding: 60px 0;
+ background-color: #ffffff;
+ text-align: center;
+}
+
+.clientes-galeria h2 {
+ font-size: 2.5rem;
+ color: #000000;
+ margin-bottom: 40px;
+}
+
+.clientes-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Cria colunas responsivas */
+ gap: 30px;
+ padding: 0 20px; /* Adiciona um pouco de padding nas laterais do grid */
+}
+
+.cliente-logo {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ height: 100px; /* Altura fixa para os logos (ajuste conforme necessário) */
+ padding: 10px;
+ box-sizing: border-box;
+}
+
+.cliente-logo img {
+ max-width: 100%;
+ max-height: 100%;
+ object-fit: contain; /* Garante que o logo caiba dentro do container */
+}
+
+.cliente-logo img:hover {
+ opacity: 1; /* Restaura a opacidade ao passar o mouse */
+}
+
+/* Responsividade para a galeria de clientes */
+@media (max-width: 768px) {
+ .clientes-galeria h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+ }
+
+ .clientes-grid {
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 20px;
+ }
+
+ .cliente-logo {
+  height: 80px;
+ }
+}
+
+/* --- RODAPÉ --- */
+footer {
+    background-color: #181818;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+}
+
+footer p + p {
+  margin-top: 12px;
+  font-style: italic;
+  font-weight: 400;
+  color: #ffffff;
+}
+footer a {
+  color: #ffffff;
+  font-weight: 600;
+  text-shadow: none;
+}
+footer a:hover,
+footer a:focus {
+  color: #444;
+  outline: none;
+  text-shadow: none;
+}
+
+.whatsapp-float-container {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 1000;
+}
+
+.whatsapp-custom-alert {
+  position: absolute;
+  bottom: 100%; /* Posiciona acima do elemento pai (o wrapper do botão) */
+  left: 50%;
+  transform: translateX(-50%); /* Centraliza horizontalmente */
+  margin-bottom: 18px; /* Espaço entre o alerta e o botão */
+  background-color: #25D366; /* Verde do WhatsApp */
+  color: white;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap; 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 1001; 
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 10px) scale(0.95); 
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out, visibility 0s linear 0.4s;
+  pointer-events: none; 
+}
+
+.whatsapp-custom-alert::after{
+    content: "";
+    width: 1px;
+    height: 0;
+    position: absolute;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    /*Faz seta "apontar para baixo. Definir o valor como 'top' fará ela "apontar para cima" */
+    /*Aqui entra a cor da "aba" do balão */
+    border-top: 20px solid #25D366;
+    bottom: -10px; /*localização. Experimente alterar para 'bottom'*/
+    left: 34%;
+}
+
+.whatsapp-custom-alert.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0) scale(1); 
+  transition-delay: 0s; 
+  pointer-events: auto; 
+}
+
+.whatsapp-float .whatsapp-tooltip {
+  display: none !important;
+}
+
+.whatsapp-float {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  background-color: #25d365ed;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  box-shadow: 0 0 0 rgba(37, 211, 101, 0.623);
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.whatsapp-float.active {
+  animation: pulse 2s infinite;
+}
+
+.whatsapp-tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #444;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  transition: opacity 0.3s, visibility 0.3s;
+  pointer-events: none;
+  z-index: 1001;
+}
+
+.whatsapp-float:hover .whatsapp-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+.whatsapp-float img {
+  width: 35px;
+  height: 35px;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+    transform: scale(1.05);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    gap: 20px;
+  }
+  .content-section {
+    flex-basis: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .content-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .produtos-section .content-wrapper {
+     flex-direction: column; 
+  }
+  .text-content, .image-content {
+    min-width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+  .image-content img {
+    max-height: 220px;
+  }
+  .content-section h2 {
+    font-size: 1.6rem;
+  }
+  .descricao-section {
+    font-size: 1rem;
+  }
+
+}
+
+/* --- REGRAS DE RESPONSIVIDADE (MEDIA QUERIES) --- */
+/* Para tablets e celulares (telas menores que 768px) */
+@media (max-width: 768px) {
+        
+    /* --- AJUSTES DO MENU DE NAVEGAÇÃO --- */
+    .nav-list {
+        display: none;
+        position: absolute;
+        top: 64px; /* Altura do header */
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        flex-direction: column;
+        gap: 0;
+        border-top: 1px solid #ddd;
+        padding: 10px 0;
+    }
+        
+    .nav-list.active {
+        display: flex;
+    }
+        
+    .nav-item {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-link-texts {
+        padding: 15px;
+        width: 100%;
+        align-items: center; /* Centraliza os textos no menu mobile */
+        box-sizing: border-box;
+    }
+
+    .hamburger {
+        display: block; /* Mostra o botão hamburger em telas pequenas */
+    }
+
+    /* --- AJUSTES DAS SEÇÕES --- */
+    .values-container {
+        flex-direction: column; /* Empilha as colunas */
+        gap: 40px; /* Ajusta o espaçamento */
+    }
+
+    .about-intro h2 {
+        font-size: 1.8rem;
+    }
+
+    .value-card {
+        flex-basis: auto;
+    }
+
+    /* Ajuste no botão do slider para telas menores */
+    .slider-nav button {
+        padding: 8px 12px;
+        font-size: 16px;
+    }
+}

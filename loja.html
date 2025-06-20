@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nossa Loja - Multcabos</title>
+    <link rel="shortcut icon" type="image/png" href="img/mini-logo.jpg"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+    <style>
+        /* --- CONFIGURAÇÕES GERAIS E VARIÁVEIS --- */
+:root {
+   --cor-primaria: #a60000;
+   --cor-secundaria: #1f0101;
+   --cor-fundo: #FFFFFF;
+   --cor-texto-claro: #FFFFFF;
+   --cor-texto: #333333;
+   --cor-branco: #ffffff;
+   --cor-destaque: #d95151;
+   --sombra-padrao: 0 4px 15px rgba(0, 0, 0, 0.08);
+   --sombra-elevada: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* --- ESTILOS GERAIS --- */
+*, *::before, *::after {
+    margin: 0; padding: 0; box-sizing: border-box;
+}
+html { scroll-behavior: smooth; } /* MELHORIA: Alternativa ao JS para rolagem suave, mais performática */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    font-size: 16px;
+    line-height: 1.7;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+a { text-decoration: none; color: inherit; }
+ul { margin: 0; padding: 0; list-style: none; }
+img { max-width: 100%; height: auto; display: block; } /* MELHORIA: Imagens responsivas por padrão */
+
+/* MELHORIA (Acessibilidade): Estilo de foco visível para quem navega com teclado */
+a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--cor-destaque);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* --- NAVEGAÇÃO --- */
+.site-header {
+    border-bottom: 1px solid #e0e0e0;
+    background: var(--cor-fundo);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+nav.container { /* Aplicado ao container da nav para centralizar */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+}
+.logo { max-height: 40px; }
+.nav-list { display: flex; gap: 40px; }
+.nav-link {
+    font-weight: 600; font-size: 1rem; color: var(--cor-texto);
+    padding: 10px 0; position: relative; transition: color 0.3s ease;
+}
+.nav-link::after {
+    content: ''; position: absolute; width: 0; height: 2px;
+    bottom: 0; left: 0; background-color: var(--cor-primaria);
+    transition: width 0.3s ease;
+}
+.nav-item:hover .nav-link, .nav-item:focus .nav-link { color: var(--cor-primaria); }
+.nav-item:hover .nav-link::after { width: 100%; }
+.hamburger { display: none; cursor: pointer; background: none; border: none; padding: 8px; z-index: 1001; position: relative; width: 32px; height: 32px; }
+.hamburger i { font-size: 24px; color: #333; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); transition: opacity 0.2s ease; }
+.hamburger .fa-times { opacity: 0; }
+.hamburger.menu-open .fa-bars { opacity: 0; }
+.hamburger.menu-open .fa-times { opacity: 1; }
+
+/* --- SEÇÃO HERO (INÍCIO) --- */
+.hero {
+    background: linear-gradient(rgb(116, 2, 2), rgba(0, 0, 0, 0.897)), url('https://via.placeholder.com/1920x1080.png?text=Imagem+de+Fundo') no-repeat center center/cover;
+    color: var(--cor-branco);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    color: var(--cor-branco);
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.cta-button-hero {
+    background-color: var(--cor-destaque);
+    color: var(--cor-branco);
+    padding: 15px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.cta-button-hero:hover {
+    background-color: #b30303;
+    transform: translateY(-3px);
+}
+
+/* --- SEÇÃO MARCAS (CARROSSEL) - NOVO CSS --- */
+#marcas {
+    background-color: #faf8f8; /* Um fundo suave para destacar a faixa */
+    padding: 30px 0;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.marcas-carousel-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    /* Efeito de fade nas laterais para suavizar a entrada/saída */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+}
+
+.marcas-scroll-track {
+    display: flex;
+    /* A largura é calculada para acomodar todos os logos duplicados */
+    width: calc(200px * 20); /* (largura do logo + padding) * (número de logos * 2) */
+    animation: scrollRight 40s linear infinite;
+}
+
+/* Pausa a animação ao passar o mouse */
+.marcas-scroll-track:hover {
+    animation-play-state: paused;
+}
+
+.logo-marca {
+    flex-shrink: 0;
+    width: 200px; /* Largura fixa para cada logo */
+    padding: 0 40px; /* Espaçamento entre os logos */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-marca img {
+    max-width: 150px;
+    max-height: 60px; /* Altura máxima para alinhar verticalmente */
+    filter: grayscale(100%); /* Deixa os logos em escala de cinza */
+    transition: filter 0.3s ease;
+}
+
+.logo-marca img:hover {
+    filter: grayscale(0%); /* Remove o filtro ao passar o mouse */
+}
+
+/* Animação de rolagem */
+@keyframes scrollRight {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-200px * 10)); /* Move a faixa pela largura exata dos logos originais */
+    }
+}
+
+
+/* --- SEÇÃO PRODUTOS --- */
+#produtos {
+    background-color: var(--cor-branco);
+    padding: 50px 0; /* Ajustado o padding-top */
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: var(--cor-texto);
+}
+
+.filtro-produtos {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.filtro-btn {
+    background: none;
+    border: 2px solid var(--cor-secundaria);
+    color: var(--cor-secundaria);
+    padding: 10px 20px;
+    border-radius: 25px;
+    margin: 0 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.filtro-btn:hover, .filtro-btn.ativo {
+    background-color: var(--cor-secundaria);
+    color: var(--cor-branco);
+}
+
+.grid-produtos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.card-produto {
+    background-color: var(--cor-fundo);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-produto:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.card-produto img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.card-produto h3 {
+    padding: 15px 10px 5px;
+    font-size: 1.2rem;
+}
+
+.card-produto p {
+    padding: 0 10px 20px;
+    color: #666;
+}
+
+/* --- RODAPÉ --- */
+footer {
+    background-color: #1c1c1c; color: #a0a0a0;
+    padding: 60px 20px;
+}
+footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+.footer-logo { 
+    max-height: 50px; margin-bottom: 15px; 
+}
+.footer-address { 
+    text-align: center; line-height: 1.6; 
+}
+footer .social-links a { 
+    color: var(--cor-texto-claro); 
+    margin: 0 15px; 
+    font-size: 1.5rem; 
+    transition: color 0.3s ease, transform 0.3s ease; 
+}
+footer .social-links a:hover { 
+    color: var(--cor-destaque); 
+    transform: scale(1.1); 
+}
+footer .copyright { 
+    margin-top: 20px; 
+    font-size: 0.9rem; 
+    text-align: center; 
+}
+footer .copyright a { 
+    color: var(--cor-texto-claro); 
+    font-weight: 600;
+}
+footer .copyright a:hover { 
+    color: var(--cor-destaque); 
+    text-decoration: underline; 
+}
+
+/* --- WHATSAPP --- */
+.whatsapp-float-container { position: fixed; bottom: 40px; right: 40px; z-index: 1000; }
+.whatsapp-float {
+    position: relative; width: 60px; height: 60px; background-color: #25d366; color: #fff;
+    border-radius: 50%; text-align: center; box-shadow: 0 0 0 rgba(37, 211, 101, 0.7);
+    display: flex; align-items: center; justify-content: center; animation: pulse 2s infinite;
+}
+.whatsapp-float i { font-size: 32px; } /* MELHORIA: Usa o ícone do FontAwesome */
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 992px) {
+    .split-layout-container { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2.5rem; }
+    .content-column h2 { font-size: 2rem; }
+    .section-title { font-size: 2.2rem; }
+
+    /* Navegação responsiva */
+    .nav-list {
+        display: none; position: absolute; top: 70px; left: 0; width: 100%;
+        background-color: var(--cor-fundo); flex-direction: column; gap: 0;
+        border-top: 1px solid #e0e0e0; padding: 10px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .nav-list.active { display: flex; }
+    .nav-item { width: 100%; text-align: center; }
+    .nav-link { padding: 15px; display: block; width: 100%; }
+    .nav-link::after { display:none; }
+    .nav-item:hover .nav-link { background-color: var(--cor-fundo-alternativa); }
+    .hamburger { display: block; }
+}
+    </style>
+
+<body>
+
+    <header class="site-header">
+        <nav class="container" role="navigation" aria-label="Menu principal">
+            <a href="index.html"><img src="img/logo-multcabos.png" alt="Logo Multcabos" class="logo" /></a>
+            
+            <button class="hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="primary-navigation">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+            
+            <ul id="primary-navigation" class="nav-list" role="menubar">
+                <li class="nav-item" role="none"><a href="empresa.html" class="nav-link" role="menuitem">A Empresa</a></li>
+                <li class="nav-item" role="none"><a href="Servicos.html" class="nav-link" role="menuitem">Serviços</a></li>
+                <li class="nav-item" role="none"><a href="clientes.html" class="nav-link" role="menuitem">Clientes</a></li>
+                <li class="nav-item" role="none"><a href="loja.html" class="nav-link" role="menuitem">Nossa Loja</a></li>
+                <li class="nav-item" role="none"><a href="empresa.html#contato" class="nav-link" role="menuitem">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <div class="container">
+                <h1>Qualidade e Inovação em Cada Produto</h1>
+                <p>Explore nosso catálogo e descubra as melhores soluções do mercado.</p>
+                <a href="#produtos" class="cta-button-hero">Ver Produtos</a>
+            </div>
+        </section>
+
+        <section id="marcas">
+            <div class="marcas-carousel-container">
+                <div class="marcas-scroll-track">
+                    <div class="logo-marca"><img src="img/TPLINK_Logo_2.svg.png" alt="Logo TPLINK"></div>
+                    <div class="logo-marca"><img src="img/secclan.webp" alt="Logo SECCLAN"></div>
+                    <div class="logo-marca"><img src="img/Commscope.png" alt="Logo COMMSCOPE"></div>
+                    <div class="logo-marca"><img src="img/dcworld.png" alt="Logo DCWORLD"></div>
+                    <div class="logo-marca"><img src="img/Mercusys-Logo.jpg" alt="Logo MERCUSYS"></div>
+                    <div class="logo-marca"><img src="img/sohoplus.png" alt="Logo SOHOPLUS"></div>
+                    <div class="logo-marca"><img src="img/furukawa.png" alt="Logo FURUKAWA"></div>
+                    <div class="logo-marca"><img src="img/fibracem.png" alt="Logo FIBRACEM"></div>
+                    <div class="logo-marca"><img src="img/EXBOM.jpg" alt="Logo EXBOM"></div>
+                    <div class="logo-marca"><img src="img/brother.jpg" alt="Logo BROTHER"></div>
+                    <div class="logo-marca"><img src="img/TPLINK_Logo_2.svg.png" alt="Logo TPLINK"></div>
+                    <div class="logo-marca"><img src="img/secclan.webp" alt="Logo SECCLAN"></div>
+                    <div class="logo-marca"><img src="img/Commscope.png" alt="Logo COMMSCOPE"></div>
+                    <div class="logo-marca"><img src="img/dcworld.png" alt="Logo DCWORLD"></div>
+                    <div class="logo-marca"><img src="img/Mercusys-Logo.jpg" alt="Logo MERCUSYS"></div>
+                    <div class="logo-marca"><img src="img/sohoplus.png" alt="Logo SOHOPLUS"></div>
+                    <div class="logo-marca"><img src="img/furukawa.png" alt="Logo FURUKAWA"></div>
+                    <div class="logo-marca"><img src="img/fibracem.png" alt="Logo FIBRACEM"></div>
+                    <div class="logo-marca"><img src="img/EXBOM.jpg" alt="Logo EXBOM"></div>
+                    <div class="logo-marca"><img src="img/brother.jpg" alt="Logo BROTHER"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="produtos">
+            <div class="container">
+                <h2 class="section-title">Nossos Produtos</h2>
+                <div class="filtro-produtos">
+                    <button class="filtro-btn ativo" data-filter="todos">Todos</button>
+                    <button class="filtro-btn" data-filter="switchs">Switchs</button>
+                    <button class="filtro-btn" data-filter="acess point">Acess Point</button>
+                    <button class="filtro-btn" data-filter="conectores">Conectores</button>
+                    <button class="filtro-btn" data-filter="roteadores">Roteadores</button>
+                    <button class="filtro-btn" data-filter="ferramentas">Ferramentas</button>
+                </div>
+                <div class="grid-produtos">
+                    <div class="card-produto" data-category="switchs">
+                        <img src="https://via.placeholder.com/300x300.png?text=Produto+1" alt="Produto 1">
+                        <h3>Nome do Produto 1</h3>
+                        <p>Categoria: Switchs</p>
+                    </div>
+                    <div class="card-produto" data-category="acess point">
+                        <img src="https://via.placeholder.com/300x300.png?text=Produto+1" alt="Produto 1">
+                        <h3>Nome do Produto 1</h3>
+                        <p>Categoria: Acess Point</p>
+                    </div>
+                    <div class="card-produto" data-category="conectores">
+                        <img src="https://via.placeholder.com/300x300.png?text=Produto+2" alt="Produto 2">
+                        <h3>Nome do Produto 2</h3>
+                        <p>Categoria: Conectores</p>
+                    </div>
+                    <div class="card-produto" data-category="roteadores">
+                        <img src="https://via.placeholder.com/300x300.png?text=Produto+2" alt="Produto 2">
+                        <h3>Nome do Produto 2</h3>
+                        <p>Categoria: Roteadores</p>
+                    </div>
+                    <div class="card-produto" data-category="ferramentas">
+                        <img src="https://via.placeholder.com/300x300.png?text=Produto+3" alt="Produto 3">
+                        <h3>Nome do Produto 3</h3>
+                        <p>Categoria: Ferramentas</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <footer id="contato">
+        <div class="container">
+            <div class="footer-info">
+                 <img src="img/logo-branca.png" alt="Logo Multcabos Branca" class="footer-logo"/> <p class="footer-address">
+                    Rua Pirapó, 267 - Vila Zanetti<br>
+                    Londrina, PR - 86025-320
+                 </p>
+            </div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/multcabos/" aria-label="Link para Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/multcabos_/" aria-label="Link para Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="copyright">
+                © 2025 Multcabos | Todos os direitos reservados.
+                <br>
+                <a href="mailto:multcabos@multcabos.com.br">multcabos@multcabos.com.br</a> | <a href="tel:+554333057777">(43) 3305-7777</a>
+            </p>
+        </div>
+    </footer>
+
+    <div class="whatsapp-float-container">
+        <a href="https://wa.me/554333057777" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Entre em contato pelo WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    
+    const hamburger = document.querySelector('.hamburger');
+    const navList = document.querySelector('.nav-list');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    if (hamburger && navList) {
+        hamburger.addEventListener('click', () => {
+            // Alterna a classe 'active' na lista de navegação para mostrar/esconder
+            navList.classList.toggle('active');
+            
+            // MELHORIA: Alterna a classe no próprio botão para mudar o ícone via CSS
+            hamburger.classList.toggle('menu-open');
+            
+            // MELHORIA (Acessibilidade): Atualiza o atributo aria-expanded
+            const isExpanded = navList.classList.contains('active');
+            hamburger.setAttribute('aria-expanded', isExpanded);
+        });
+    }
+
+    // Fecha o menu ao clicar em um link (útil em mobile)
+    if (navLinks.length > 0 && navList) {
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navList.classList.contains('active')) {
+                    navList.classList.remove('active');
+                    hamburger.classList.remove('menu-open');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+    }
+
+    // --- FILTRO DE PRODUTOS (DO CATÁLOGO ORIGINAL) ---
+    const filterButtons = document.querySelectorAll('.filtro-btn');
+    const productCards = document.querySelectorAll('.card-produto');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            filterButtons.forEach(btn => btn.classList.remove('ativo'));
+            button.classList.add('ativo');
+
+            const filter = button.getAttribute('data-filter');
+
+            productCards.forEach(card => {
+                if (filter === 'todos' || card.getAttribute('data-category') === filter) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+
+});
+    </script>
+</body>
+</html>

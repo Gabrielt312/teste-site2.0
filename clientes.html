@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossos Clientes - Multcabos</title>
+    <link rel="shortcut icon" type="image/png" href="img/mini-logo.jpg"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* --- ESTILOS GERAIS (MESMA BASE DA PÁGINA INICIAL) --- */
+        :root {
+            --cor-primaria: #005A9C;
+            --cor-secundaria: #1f0101;
+            --cor-destaque: #d95151;
+            --cor-fundo: #FFFFFF;
+            --cor-fundo-alternativa: #f0f2f5;
+            --cor-texto: #333333;
+            --cor-texto-claro: #FFFFFF;
+            --sombra-padrao: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--cor-secundaria);
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 60px auto;
+            color: #666;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+         /* --- CABEÇALHO E NAVEGAÇÃO --- */
+        header {
+            border-bottom: 1px solid #e0e0e0;
+            background: var(--cor-fundo);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .logo {
+            max-height: 40px;
+        }
+
+        /* Menu Desktop */
+        .nav-list {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-item {
+            cursor: pointer;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--cor-texto);
+            padding: 10px 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--cor-primaria);
+            transition: width 0.3s ease;
+        }
+        .nav-item:hover .nav-link, .nav-item:focus .nav-link {
+            color: var(--cor-primaria);
+        }
+        .nav-item:hover .nav-link::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        .hamburger i {
+            font-size: 28px;
+            color: #333;
+        }
+        
+        /* --- HERO SECTION DA PÁGINA DE CLIENTES --- */
+        .hero-clientes {
+            background-color: var(--cor-secundaria);
+            color: var(--cor-texto-claro);
+            padding: 80px 0;
+            text-align: center;
+        }
+        .hero-clientes h1 {
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        /* --- SEÇÃO GALERIA DE CLIENTES (CONTEÚDO MANTIDO, ESTILO ATUALIZADO) --- */
+        .clientes-galeria {
+            padding: 80px 0;
+            background-color: var(--cor-fundo-alternativa);
+        }
+
+        .clientes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 30px;
+        }
+
+        .cliente-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+            padding: 15px;
+            box-sizing: border-box;
+            background-color: var(--cor-fundo);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cliente-logo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .cliente-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            opacity: 0.8;
+            transition: filter 0.3s ease, opacity 0.3s ease;
+        }
+
+        .cliente-logo:hover img {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+/* --- RODAPÉ --- */
+footer {
+    background-color: #1c1c1c; color: #a0a0a0;
+    padding: 60px 20px;
+}
+footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+.footer-logo { 
+    max-height: 50px; margin-bottom: 15px; 
+}
+.footer-address { 
+    text-align: center; line-height: 1.6; 
+}
+footer .social-links a { 
+    color: var(--cor-texto-claro); 
+    margin: 0 15px; 
+    font-size: 1.5rem; 
+    transition: color 0.3s ease, transform 0.3s ease; 
+}
+footer .social-links a:hover { 
+    color: var(--cor-destaque); 
+    transform: scale(1.1); 
+}
+footer .copyright { 
+    margin-top: 20px; 
+    font-size: 0.9rem; 
+    text-align: center; 
+}
+footer .copyright a { 
+    color: var(--cor-texto-claro); 
+    font-weight: 600;
+}
+footer .copyright a:hover { 
+    color: var(--cor-destaque); 
+    text-decoration: underline; 
+}
+/* --- WHATSAPP --- */
+.whatsapp-float-container { position: fixed; bottom: 40px; right: 40px; z-index: 1000; }
+.whatsapp-float {
+    position: relative; width: 60px; height: 60px; background-color: #25d366; color: #fff;
+    border-radius: 50%; text-align: center; box-shadow: 0 0 0 rgba(37, 211, 101, 0.7);
+    display: flex; align-items: center; justify-content: center; animation: pulse 2s infinite;
+}
+.whatsapp-float i { font-size: 32px; } /* MELHORIA: Usa o ícone do FontAwesome */
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+        /* --- MEDIA QUERIES PARA RESPONSIVIDADE --- */
+        @media (max-width: 992px) {
+             .contato-wrapper {
+                 flex-direction: column;
+             }
+        }
+
+        @media (max-width: 768px) {
+            .nav-list {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--cor-fundo);
+                flex-direction: column;
+                gap: 0;
+                border-top: 1px solid #e0e0e0;
+                padding: 10px 0;
+            }
+            .nav-list.active {
+                display: flex;
+            }
+            .nav-item {
+                width: 100%;
+                text-align: center;
+            }
+            .nav-link {
+                 padding: 15px;
+                 display: block;
+                 width: 100%;
+            }
+             .nav-link::after {
+                display:none;
+             }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container" role="navigation" aria-label="Menu principal">
+            <a href="inicio.html"><img src="img/logo-multcabos.png" alt="Logo Multcabos" class="logo" /></a>
+            <button class="hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="primary-navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul id="primary-navigation" class="nav-list" role="menubar">
+                <li class="nav-item" role="none"><a href="index.html" class="nav-link" role="menuitem">Inicio</a></li>
+                <li class="nav-item" role="none"><a href="empresa.html" class="nav-link" role="menuitem">A Empresa</a></li>
+                <li class="nav-item" role="none"><a href="Servicos.html" class="nav-link" role="menuitem">Serviços</a></li>
+                <li class="nav-item" role="none"><a href="clientes.html" class="nav-link" role="menuitem">Clientes</a></li>
+                <li class="nav-item" role="none"><a href="loja.html" class="nav-link" role="menuitem">Nossa Loja</a></li>
+                <li class="nav-item" role="none"><a href="empresa.html#contato" class="nav-link" role="menuitem">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-clientes">
+            <div class="container">
+                <h1>A Confiança dos Nossos Clientes</h1>
+            </div>
+        </section>
+
+        <section id="clientes-galeria" class="clientes-galeria">
+            <div class="container">
+                <h2>Quem Confia em Nosso Trabalho</h2>
+                <p class="section-subtitle">Temos o orgulho de atender empresas de diversos segmentos, oferecendo soluções que impulsionam seus negócios. Estes são alguns dos nossos parceiros.</p>
+                <div class="clientes-grid">
+                    <div class="cliente-logo">
+                        <img src="img/vectra.png" alt="Logo Cliente Vectra">
+                    </div>
+                    <div class="cliente-logo">
+                        <img src="img/atlas.jpg" alt="Logo Cliente Atlas">
+                    </div>
+                    <div class="cliente-logo">
+                        <img src="img/catuai.jpg" alt="Logo Cliente Catuaí Shopping">
+                    </div>
+                    <div class="cliente-logo">
+                        <img src="img/dialli.jpg" alt="Logo Cliente Dialli">
+                    </div>
+                    <div class="cliente-logo">
+                        <img src="img/laborsolo.png" alt="Logo Cliente Laborsolo">
+                    </div>
+                    <div class="cliente-logo">
+                        <img src="img/petz.png" alt="Logo Cliente Petz">
+                    </div>
+                    <div class="cliente-logo">
+                        <img src="img/usina.jpg" alt="Logo Cliente Usina">
+                    </div>
+                    <div class="cliente-logo">
+                        <img src="img/casadoprovedor.png" alt="Logo Cliente Casa do Provedor">
+                    </div>
+                    <div class="cliente-logo">
+                        <img src="img/casadoprovedor.png" alt="Logo Cliente Casa do Provedor">
+                    </div>
+                    <div class="cliente-logo">
+                        <img src="img/casadoprovedor.png" alt="Logo Cliente Casa do Provedor">
+                    </div>
+                    <div class="cliente-logo">
+                        <img src="img/casadoprovedor.png" alt="Logo Cliente Casa do Provedor">
+                    </div>
+                    <div class="cliente-logo">
+                        <img src="img/casadoprovedor.png" alt="Logo Cliente Casa do Provedor">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="whatsapp-float-container">
+        <a href="https://wa.me/554333057777" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Entre em contato pelo WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+   <footer id="contato">
+        <div class="container">
+            <div class="footer-info">
+                 <img src="img/logo-branca.png" alt="Logo Multcabos Branca" class="footer-logo"/> <p class="footer-address">
+                    Rua Pirapó, 267 - Vila Zanetti<br>
+                    Londrina, PR - 86025-320
+                 </p>
+            </div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/multcabos/" aria-label="Link para Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/multcabos_/" aria-label="Link para Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="copyright">
+                © 2025 Multcabos | Todos os direitos reservados.
+                <br>
+                <a href="mailto:multcabos@multcabos.com.br">multcabos@multcabos.com.br</a> | <a href="tel:+554333057777">(43) 3305-7777</a>
+            </p>
+        </div>
+    </footer>
+
+<script>
+    // --- SCRIPT PARA MENU MOBILE ---
+    const hamburger = document.querySelector('.hamburger');
+    const navList = document.querySelector('.nav-list');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    hamburger.addEventListener('click', () => {
+        const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', !isExpanded);
+        navList.classList.toggle('active');
+    });
+
+    // Fecha o menu mobile ao clicar em um link
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (navList.classList.contains('active')) {
+                navList.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
+        });
+    });
+
+    // --- SCRIPT PARA BOTÃO WHATSAPP ---
+    const whatsappButton = document.querySelector('.whatsapp-float');
+    if (whatsappButton) {
+        setTimeout(() => {
+            whatsappButton.classList.add('active');
+        }, 1000);
+
+        const customWhatsappAlertEl = document.getElementById('customWhatsappAlert');
+        const oldTooltipEl = whatsappButton.querySelector('.whatsapp-tooltip');
+        if (oldTooltipEl) {
+            oldTooltipEl.remove();
+        }
+
+        if (customWhatsappAlertEl) {
+            let autoHideTimeoutId;
+            const hideAlert = () => {
+                customWhatsappAlertEl.classList.remove('visible');
+                clearTimeout(autoHideTimeoutId);
+            };
+            setTimeout(() => {
+                customWhatsappAlertEl.classList.add('visible');
+                autoHideTimeoutId = setTimeout(hideAlert, 7500);
+                customWhatsappAlertEl.addEventListener('click', hideAlert, { once: true });
+            }, 1500);
+        }
+    }
+</script>
+</body>
+</html>

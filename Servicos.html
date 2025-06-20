@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços - Multcabos</title>
+    <link rel="shortcut icon" type="image/png" href="img/mini-logo.jpg"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* --- ESTILOS GERAIS --- */
+        :root {
+            --cor-primaria: #a60000;
+            --cor-secundaria: #1f0101;
+            --cor-destaque: #d95151;
+            --cor-fundo: #FFFFFF;
+            --cor-fundo-alternativa: #f0f2f5;
+            --cor-texto: #333333;
+            --cor-texto-claro: #FFFFFF;
+            --sombra-padrao: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: var(--cor-fundo-alternativa); /* Fundo ligeiramente cinza para destacar os cards */
+            color: var(--cor-texto);
+            font-size: 16px;
+            line-height: 1.6; /* Ajuste para melhor leitura */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--cor-secundaria);
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 60px auto;
+            color: #666;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        /* --- CABEÇALHO E NAVEGAÇÃO --- */
+        header {
+            border-bottom: 1px solid #e0e0e0;
+            background: var(--cor-fundo);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .logo {
+            max-height: 40px;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-item {
+            cursor: pointer;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--cor-texto);
+            padding: 10px 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--cor-primaria);
+            transition: width 0.3s ease;
+        }
+        .nav-item:hover .nav-link, .nav-item:focus .nav-link {
+            color: var(--cor-primaria);
+        }
+        .nav-item:hover .nav-link::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        .hamburger i {
+            font-size: 28px;
+            color: #333;
+        }
+        
+        /* --- HERO SECTION DA PÁGINA --- */
+        .hero-servicos {
+            background-color: var(--cor-secundaria);
+            color: var(--cor-texto-claro);
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .hero-servicos h1 { font-size: 2.8rem; margin: 0; }
+        
+        /* --- GALERIA DE SERVIÇOS (NOVO ESTILO) --- */
+        .servicos-galeria {
+            padding: 80px 0;
+            background-color: var(--cor-fundo-alternativa);
+        }
+
+        .filter-buttons {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .filter-buttons button {
+            background: none;
+            border: 2px solid var(--cor-primaria);
+            color: var(--cor-primaria);
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .filter-buttons button:hover, .filter-buttons button.active {
+            background-color: var(--cor-primaria);
+            color: var(--cor-texto-claro);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        
+        .gallery-item {
+            background-color: var(--cor-fundo);
+            border-radius: 8px;
+            box-shadow: var(--sombra-padrao);
+            overflow: hidden; /* Garante que a imagem não ultrapasse a borda arredondada */
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .gallery-item .image-container {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        
+        .gallery-item .image-container:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-item .image-container::after { /* Overlay de ícone */
+            content: '\f002'; /* Ícone de Lupa do FontAwesome */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(166, 0, 0, 0.6);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .gallery-item .image-container:hover::after {
+            opacity: 1;
+        }
+        
+        .gallery-item-content {
+            padding: 20px 25px;
+            flex-grow: 1; /* Faz o conteúdo ocupar o espaço restante */
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .gallery-item-content h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: var(--cor-secundaria);
+            font-size: 1.3rem;
+        }
+
+        .gallery-item-content p {
+            margin-bottom: 0;
+            color: #555;
+            font-size: 0.95rem;
+            flex-grow: 1;
+        }
+        
+        /* --- MODAL / LIGHTBOX (AJUSTADO) --- */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 90%;
+            max-height: 90vh;
+            width: 900px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-close {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: white;
+            color: var(--cor-primaria);
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        .modal-slider {
+            position: relative;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-slider img {
+            width: 100%;
+            height: auto;
+            max-height: calc(90vh - 120px); /* Ajusta a altura da imagem no modal */
+            object-fit: contain;
+            border-radius: 5px;
+        }
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            left: 0px;
+            width: 100%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+        }
+        .modal-nav button {
+            background-color: rgba(25, 25, 25, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .modal-nav button:hover {
+            background-color: var(--cor-primaria);
+        }
+        .modal-description { /* Mantido para o título */
+            padding-top: 15px;
+            text-align: center;
+        }
+        .modal-description h3 {
+            margin: 0;
+            color: var(--cor-secundaria);
+        }
+        
+        /* --- WHATSAPP --- */
+.whatsapp-float-container { position: fixed; bottom: 40px; right: 40px; z-index: 1000; }
+.whatsapp-float {
+    position: relative; width: 60px; height: 60px; background-color: #25d366; color: #fff;
+    border-radius: 50%; text-align: center; box-shadow: 0 0 0 rgba(37, 211, 101, 0.7);
+    display: flex; align-items: center; justify-content: center; animation: pulse 2s infinite;
+}
+.whatsapp-float i { font-size: 32px; } /* MELHORIA: Usa o ícone do FontAwesome */
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+/* --- RODAPÉ --- */
+footer {
+    background-color: #1c1c1c; color: #a0a0a0;
+    padding: 60px 20px;
+}
+footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+.footer-logo { 
+    max-height: 50px; margin-bottom: 15px; 
+}
+.footer-address { 
+    text-align: center; line-height: 1.6; 
+}
+footer .social-links a { 
+    color: var(--cor-texto-claro); 
+    margin: 0 15px; 
+    font-size: 1.5rem; 
+    transition: color 0.3s ease, transform 0.3s ease; 
+}
+footer .social-links a:hover { 
+    color: var(--cor-destaque); 
+    transform: scale(1.1); 
+}
+footer .copyright { 
+    margin-top: 20px; 
+    font-size: 0.9rem; 
+    text-align: center; 
+}
+footer .copyright a { 
+    color: var(--cor-texto-claro); 
+    font-weight: 600;
+}
+footer .copyright a:hover { 
+    color: var(--cor-destaque); 
+    text-decoration: underline; 
+}
+
+
+/* --- MEDIA QUERIES PARA RESPONSIVIDADE --- */
+@media (max-width: 768px) {
+    .nav-list {
+    display: none;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background-color: var(--cor-fundo);
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid #e0e0e0;
+    padding: 10px 0;
+}
+.nav-list.active { display: flex; }
+.nav-item { width: 100%; text-align: center; }
+.nav-link { padding: 15px; display: block; width: 100%; }
+.nav-link::after { display:none; }
+.hamburger { display: block; }
+}
+</style>
+</head>
+<body>
+   <header>
+        <nav class="container" role="navigation" aria-label="Menu principal">
+            <a href="inicio.html"><img src="img/logo-multcabos.png" alt="Logo Multcabos" class="logo" /></a>
+            <button class="hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="primary-navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul id="primary-navigation" class="nav-list" role="menubar">
+                <li class="nav-item" role="none"><a href="index.html" class="nav-link" role="menuitem">Inicio</a></li>
+                <li class="nav-item" role="none"><a href="empresa.html" class="nav-link" role="menuitem">A Empresa</a></li>
+                <li class="nav-item" role="none"><a href="Servicos.html" class="nav-link" role="menuitem">Serviços</a></li>
+                <li class="nav-item" role="none"><a href="clientes.html" class="nav-link" role="menuitem">Clientes</a></li>
+                <li class="nav-item" role="none"><a href="loja.html" class="nav-link" role="menuitem">Nossa Loja</a></li>
+                <li class="nav-item" role="none"><a href="empresa.html#contato" class="nav-link" role="menuitem">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-servicos">
+            <h1>Nosso Portfólio de Serviços</h1>
+        </section>
+
+        <section class="servicos-galeria">
+            <div class="container">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">TODOS</button>
+                    <button class="filter-btn" data-filter="cabeamento">CABEAMENTO</button>
+                    <button class="filter-btn" data-filter="cftv">CFTV</button>
+                    <button class="filter-btn" data-filter="backbone">BACKBONE</button>
+                    <button class="filter-btn" data-filter="infraestrutura">INFRAESTRUTURA</button>
+                    <button class="filter-btn" data-filter="racks">RACKS</button>
+                    <button class="filter-btn" data-filter="analises">ANÁLISES</button>
+                </div>
+
+                <div class="gallery-grid">
+                    
+                    <div class="gallery-item" data-category="cftv" data-title="CFTV (Circuito Fechado de TV)" data-images="img/imagem-teste.png,img/imagem-teste1.jpg,img/imagem-teste2.jpg">
+                        <div class="image-container">
+                           <img src="img/imagem-teste.png" alt="Projeto de CFTV">
+                        </div>
+                        <div class="gallery-item-content">
+                            <h3>CFTV (Circuito Fechado de TV)</h3>
+                            <p>Implementamos sistemas de vigilância por vídeo de alta definição para proteger seu patrimônio. Nossas soluções de CFTV incluem a instalação de câmeras estratégicas e configuração para monitoramento remoto.</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" data-category="cabeamento" data-title="Cabeamento Estruturado" data-images="img/imagem-teste.png,img/imagem-teste1.jpg,img/imagem-teste2.jpg">
+                        <div class="image-container">
+                           <img src="img/imagem-teste1.jpg" alt="Projeto de Cabeamento Estruturado">
+                        </div>
+                        <div class="gallery-item-content">
+                            <h3>Cabeamento Estruturado</h3>
+                            <p>Projetamos e instalamos sistemas de cabeamento (metálico e óptico) que unificam dados, voz e vídeo, criando uma infraestrutura de rede organizada, escalável e de alto desempenho.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="racks" data-title="Organização e Montagem de Racks" data-images="img/imagem-teste.png,img/imagem-teste1.jpg,img/imagem-teste2.jpg">
+                        <div class="image-container">
+                           <img src="img/imagem-teste.png" alt="Montagem de Racks">
+                        </div>
+                        <div class="gallery-item-content">
+                            <h3>Organização e Montagem de Racks</h3>
+                            <p>Realizamos a montagem e otimização de racks de servidores e equipamentos de TI, facilitando a manutenção, melhorando a ventilação e garantindo a estabilidade da sua rede.</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" data-category="backbone" data-title="Backbone Óptico e Metálico" data-images="img/imagem-teste.png,img/imagem-teste1.jpg,img/imagem-teste2.jpg">
+                         <div class="image-container">
+                           <img src="img/imagem-teste1.jpg" alt="Projeto de Backbone Óptico">
+                        </div>
+                        <div class="gallery-item-content">
+                            <h3>Backbone Óptico e Metálico</h3>
+                            <p>Construímos a espinha dorsal da sua rede com fibra óptica ou cabeamento metálico, garantindo uma comunicação de dados rápida, confiável e sem gargalos entre os sistemas da sua empresa.</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" data-category="infraestrutura" data-title="Infraestrutura de Rede" data-images="img/imagem-teste.png,img/imagem-teste1.jpg,img/imagem-teste2.jpg">
+                        <div class="image-container">
+                           <img src="img/imagem-teste.png" alt="Projeto de Infraestrutura">
+                        </div>
+                        <div class="gallery-item-content">
+                            <h3>Infraestrutura de Rede</h3>
+                            <p>Desenvolvemos projetos completos de infraestrutura de TI, desde a passagem de eletrodutos e canaletas até a instalação de pontos de rede, preparando o ambiente físico para sua operação.</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" data-category="analises" data-title="Análise e Diagnóstico de Rede" data-images="img/imagem-teste.png,img/imagem-teste1.jpg,img/imagem-teste2.jpg">
+                        <div class="image-container">
+                           <img src="img/imagem-teste1.jpg" alt="Analise e diagnóstico da rede">
+                        </div>
+                        <div class="gallery-item-content">
+                            <h3>Análise e Diagnóstico de Rede</h3>
+                            <p>Sua rede está lenta? Usamos equipamentos de ponta para identificar problemas e gargalos, entregando um diagnóstico preciso e soluções para otimizar sua conectividade.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal-backdrop" id="gallery-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close-btn">&times;</button>
+            <div class="modal-slider">
+                <img id="modal-image" src="" alt="Imagem do Projeto">
+                <div class="modal-nav">
+                    <button id="modal-prev-btn">&lt;</button>
+                    <button id="modal-next-btn">&gt;</button>
+                </div>
+                 <div class="modal-description">
+                    <h3 id="modal-title"></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="whatsapp-float-container">
+        <a href="https://wa.me/554333057777" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Entre em contato pelo WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <footer id="contato">
+        <div class="container">
+            <div class="footer-info">
+                 <img src="img/logo-branca.png" alt="Logo Multcabos Branca" class="footer-logo"/> <p class="footer-address">
+                    Rua Pirapó, 267 - Vila Zanetti<br>
+                    Londrina, PR - 86025-320
+                 </p>
+            </div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/multcabos/" aria-label="Link para Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/multcabos_/" aria-label="Link para Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="copyright">
+                © 2025 Multcabos | Todos os direitos reservados.
+                <br>
+                <a href="mailto:multcabos@multcabos.com.br">multcabos@multcabos.com.br</a> | <a href="tel:+554333057777">(43) 3305-7777</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- MENU MOBILE ---
+        const hamburger = document.querySelector('.hamburger');
+        const navList = document.querySelector('.nav-list');
+        hamburger.addEventListener('click', () => {
+            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+            navList.classList.toggle('active');
+        });
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navList.classList.contains('active')) {
+                    navList.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+
+        // --- FILTRO DA GALERIA ---
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                const filter = button.getAttribute('data-filter');
+                galleryItems.forEach(item => {
+                    item.style.display = (filter === 'all' || item.getAttribute('data-category') === filter) ? 'flex' : 'none';
+                });
+            });
+        });
+
+        // --- LÓGICA DO MODAL (LIGHTBOX) ---
+        const modal = document.getElementById('gallery-modal');
+        const modalImage = document.getElementById('modal-image');
+        const modalTitle = document.getElementById('modal-title');
+        const closeModalBtn = document.getElementById('modal-close-btn');
+        const prevBtn = document.getElementById('modal-prev-btn');
+        const nextBtn = document.getElementById('modal-next-btn');
+
+        let currentImages = [];
+        let currentIndex = 0;
+
+        const openModal = (item) => {
+            currentImages = item.getAttribute('data-images').split(',');
+            currentIndex = 0;
+            modalTitle.textContent = item.getAttribute('data-title');
+            updateModalImage();
+            modal.style.display = 'flex';
+        };
+
+        const updateModalImage = () => {
+            modalImage.src = currentImages[currentIndex].trim();
+        };
+
+        const showNextImage = () => {
+            currentIndex = (currentIndex + 1) % currentImages.length;
+            updateModalImage();
+        };
+
+        const showPrevImage = () => {
+            currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+            updateModalImage();
+        };
+        
+        // Adiciona evento de clique aos containers de imagem
+        document.querySelectorAll('.gallery-item .image-container').forEach(container => {
+            container.addEventListener('click', () => {
+                openModal(container.closest('.gallery-item'));
+            });
+        });
+
+        closeModalBtn.addEventListener('click', () => modal.style.display = 'none');
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        nextBtn.addEventListener('click', showNextImage);
+        prevBtn.addEventListener('click', showPrevImage);
+    });
+    </script>
+</body>
+</html>
